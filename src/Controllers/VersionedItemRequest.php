@@ -66,8 +66,8 @@ class VersionedItemRequest extends VersionedGridFieldItemRequest
 
         $newButtons = $this->filterFieldList($record->getBetterButtonsActions());
 
-        $cl = $record->ClassName;
-        if (property_exists($cl, "overrideBetterButtons") && $cl::$overrideBetterButtons === true) {
+        if ($record->hasMethod("replaceDefaultButtons") && 
+                $record->replaceDefaultButtons() === true) {
             $actions = $newButtons;
         } else {
             $actions->merge($newButtons);
